@@ -1,0 +1,12 @@
+// Custom JSON Annotation
+@JsonInclude(JsonInclude.Include.NON_NULL)
+{{^discriminator}}
+    @JsonIgnoreProperties(ignoreUnknown = true)
+{{/discriminator}}
+
+// Lombok
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor

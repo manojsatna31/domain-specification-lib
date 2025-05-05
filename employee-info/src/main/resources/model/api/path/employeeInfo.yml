@@ -1,0 +1,21 @@
+---
+fetch-employee-info:
+  get:
+    summary: Get Employee Information
+    operationId: fetchEmployeeInfo
+    tags:
+      - employee-info-controller
+    parameters:
+      - name: sid
+        in: path
+        description: Employee SID
+        required: true
+        schema:
+          type: string
+    response:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../schema/Employee.yml#/Employee'

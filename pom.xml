@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.technext.spec</groupId>
+    <artifactId>domain-specification-lib</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>OpenAPI Code Generator Using Lombok , Jakarta with Custom Template </description>
+    <modules>
+        <module>employee-info</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <model.version>v1</model.version>
+        <java.version>17</java.version>
+        <classifier.api>api</classifier.api>
+        <openapi-generator.version>7.13.0</openapi-generator.version>
+        <model/>
+        <api.base.url>/api/v1</api.base.url>
+        <api.build.skip>true</api.build.skip>
+        <api-ux-client.build.skip>true</api-ux-client.build.skip>
+        <api.jar.phase>none</api.jar.phase>
+        <model.package>com.technext.spec</model.package>
+        <model.directory>com/technext/spec</model.directory>
+        <spring-3-code-gen>false</spring-3-code-gen>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>2.2.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <execution>
+                        <id>api-code-generator</id> <!-- Unique ID for execution block -->
+                        <goals>
+                            <goal>generate</goal> <!-- Specifies that code generation should be performed -->
+                        </goals>
+                        <configuration>
+                            <!-- Allows skipping API generation when necessary -->
+                            <skip>${api.build.skip}</skip>
+                            <!-- Points to the OpenAPI YAML specification -->
+                            <inputSpec>${project.basedir}/src/main/resources/${model}-api.yml</inputSpec>
+                            <!-- Defines output directory for generated source code -->
+                            <output>${project.build.directory}/generated-source/openapi</output>
+
+                            <!-- Uses Spring generator for code generation -->
+                            <generatorName>spring</generatorName>
+
+                            <!-- Defines package paths for API and models -->
+                            <apiPackage>${model.package}.${model}.${model.version}.api</apiPackage>
+                            <modelPackage>${model.package}.${model}.${model.version}.model</modelPackage>
+
+                            <!-- Enables API and Model documentation-->
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <generateModelDocumentation>true</generateModelDocumentation>
+
+                            <!-- Enables API and Model test generation -->
+                            <generateApiTests>true</generateApiTests>
+                            <generateModelTests>true</generateModelTests>
+
+                            <!-- Uses Spring Cloud library for API generation -->
+                            <library>spring-cloud</library>
+
+                            <!-- Ensures OpenAPI spec validation is enforced -->
+                            <skipValidateSpec>false</skipValidateSpec>
+
+                            <!-- Ensures OpenAPI spec validation is enforced -->
+                            <generateSupportingFiles>true</generateSupportingFiles>
+
+                            <!--<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>-->
+
+                            <!-- Adds "Api" suffix to generated API interfaces -->
+                            <apiNameSuffix>Api</apiNameSuffix>
+
+                            <!-- Points to a custom template directory -->
+                            <templateResourcePath>${project.basedir}/../templates/JavaSpring</templateResourcePath>
+
+
+                            <configOptions>
+                                <globalProperties>
+                                    <!-- Enables OpenAPI debugging -->
+                                    <debugOpenAPI>true</debugOpenAPI>
+                                    <!-- Enables operation-level debugging -->
+                                    <debugOperations>true</debugOperations>
+                                </globalProperties>
+
+                                <!-- Uses Java 8 Date library for generated models -->
+                                <dateLibrary>java8</dateLibrary>
+
+                                <!-- Disables OpenAPI nullable fields-->
+                                <!--<openApiNullable>false</openApiNullable>-->
+                                <!-- Enables Delegate pattern in API controllers-->
+                                <!--<delegatePattern>true</delegatePattern>-->
+
+                                <!-- Enables various modern frameworks and specifications -->
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useSpringController>true</useSpringController>
+                                <useJakartaEe>true</useJakartaEe>
+
+                                <!-- Ensures that API tags are mapped correctly -->
+                                <useTags>true</useTags>
+
+                                <!-- Defines additional annotations for generated models -->
+                                <!-- Lombok annotation for getter/setter and `toString()` -->
+                                <!-- Lombok annotation for no-arg constructor and all-arg constructor -->
+                                <!-- Excludes `null` values from JSON output & Ignores unknown JSON properties-->
+                                <!--<additionalModelTypeAnnotations>
+                                    @lombok.Data
+                                    @lombok.NoArgsConstructor
+                                    @lombok.AllArgsConstructor
+                                    @JsonInclude(JsonInclude.Include.NON_NULL)
+                                    @JsonIgnoreProperties(ignoreUnknown = true)
+                                </additionalModelTypeAnnotations>-->
+                            </configOptions>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <!--<version>4.0.0-beta-1</version>-->
+
+                <executions>
+                    <execution>
+                        <id>api</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>${api.jar.phase}</phase>
+                        <configuration>
+                            <classifier>${classifier.api}</classifier>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <classesDirectory/>
+                            <outputDirectory/>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

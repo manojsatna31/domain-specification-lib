@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  description: Employee Info API
+  version: 0.0.1
+  title: Employee Info API
+  termsOfService: Term of Service
+  contact:
+    name:  Manoj Mishra
+    url: 'https://www.test.com'
+    email: support@support.com
+  license:
+    name: licence of API
+servers:
+  - description: Test server
+    url: http://localhost:8080
+tags:
+  - name: employee-info-controller
+    description: EmployeeInfo Controller
+
+paths:
+  /api/v1/employee/info/{sid}:
+    $ref: './model/api/path/employeeInfo.yml#/fetch-employee-info'
+
+components:
+  schemas:
+    Employee:
+      $ref: './model/api/schema/Employee.yml#/Employee'

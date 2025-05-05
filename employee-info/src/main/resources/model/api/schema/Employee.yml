@@ -1,0 +1,23 @@
+Employee:
+  type: object
+  required:
+    - sid
+    - firstName
+    - lastName
+    - eMailId
+  properties:
+    sid:
+      type: string
+      description: Employee SID
+    firstName:
+      type: string
+      description: Employee First Name
+    middleName:
+      type: string
+      description: Employee Middle Name
+    lastName:
+      type: string
+      description: Employee Last Name
+    eMailId:
+      type: string
+      description: Employee email id

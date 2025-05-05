@@ -1,3 +1,7 @@
+# **Custom OpenAPI Code Generation for Spring Boot & Jakarta EE**
+
+This project provides a streamlined approach to customizing **OpenAPI Generator** templates, allowing developers to optimize generated models with **mandatory annotations and imports**. Ideal for **Spring Boot 3, Jakarta EE**, and frameworks requiring **JSON serialization** and **Lombok automation**.
+
 # Domain Specification Library (`domain-specification-lib`)
 
 ## Overview

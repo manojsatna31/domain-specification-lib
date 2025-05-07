@@ -15,6 +15,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.springframework.http.codec.multipart.Part;
 {{/reactive}}
+{{^vendorExtensions.x-spring-cacheable}}
+import org.springframework.cache.annotation.Cacheable;
+{{/vendorExtensions.x-spring-cacheable}}
+import org.springframework.stereotype.Component;
 
 {{#useBeanValidation}}
 import {{javaxPackage}}.validation.constraints.*;
@@ -34,6 +38,7 @@ import {{javaxPackage}}.annotation.Generated;
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
 {{>generatedAnnotation}}
+@Component
 public interface {{classname}}Delegate {
 {{#jdk8-default-interface}}
 
@@ -66,6 +71,13 @@ public interface {{classname}}Delegate {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
+    {{#vendorExtensions.x-spring-cacheable}}
+    @Cacheable(
+            cacheNames={{#name}}"{{.}}"{{/name}}{{^name}}"default"{{/name}},
+            unless={{#unless}}"{{.}}"{{/unless}}{{^unless}}"#result== null || #result.size() <=0 "{{/unless}},
+            keyGenerator = {{#keyGenerator}}"{{.}}Generator"{{/keyGenerator}}{{^keyGenerator}}"default"{{/keyGenerator}}
+    )
+    {{/vendorExtensions.x-spring-cacheable}}
     {{#jdk8-default-interface}}default {{/jdk8-default-interface}}{{>responseType}} {{operationId}}({{#allParams}}{{^isFile}}{{^isBodyParam}}{{>optionalDataType}}{{/isBodyParam}}{{#isBodyParam}}{{^reactive}}{{>optionalDataType}}{{/reactive}}{{#reactive}}{{^isArray}}Mono<{{{dataType}}}>{{/isArray}}{{#isArray}}Flux<{{{baseType}}}>{{/isArray}}{{/reactive}}{{/isBodyParam}}{{/isFile}}{{#isFile}}{{#isArray}}List<{{/isArray}}{{#reactive}}Flux<Part>{{/reactive}}{{^reactive}}{{#isFormParam}}MultipartFile{{/isFormParam}}{{^isFormParam}}{{>optionalDataType}}{{/isFormParam}}{{/reactive}}{{#isArray}}>{{/isArray}}{{/isFile}} {{paramName}}{{^-last}},
         {{/-last}}{{/allParams}}{{#reactive}}{{#hasParams}},
         {{/hasParams}}ServerWebExchange exchange{{/reactive}}{{#vendorExtensions.x-spring-paginated}}{{#hasParams}}, {{/hasParams}}{{^hasParams}}{{#reactive}}, {{/reactive}}{{/hasParams}}final Pageable pageable{{/vendorExtensions.x-spring-paginated}}){{#unhandledException}} throws Exception{{/unhandledException}}{{^jdk8-default-interface}};{{/jdk8-default-interface}}{{#jdk8-default-interface}} {

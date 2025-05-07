@@ -32,6 +32,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>3.4.5</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0</version>
@@ -155,7 +160,7 @@
                                 <!-- Disables OpenAPI nullable fields-->
                                 <!--<openApiNullable>false</openApiNullable>-->
                                 <!-- Enables Delegate pattern in API controllers-->
-                                <!--<delegatePattern>true</delegatePattern>-->
+                                <delegatePattern>true</delegatePattern>
 
                                 <!-- Enables various modern frameworks and specifications -->
                                 <useSpringBoot3>true</useSpringBoot3>

@@ -38,7 +38,7 @@ public interface {{classname}}Delegate {
 To enable caching for specific operations, follow the steps below.
 ### 1. Update employeeInfo.yml
 Define caching configurations by updating the employeeInfo.yml file:
-```bash
+```yml
    x-spring-cacheable:
    name: fetchEmployeeInfoCache
 ```
@@ -57,14 +57,14 @@ Edit the Mustache template to integrate caching logic.
 
 1. Import @Cacheable
 Ensure that the @Cacheable annotation is included conditionally:
-    ```bash
+    ```mustache
     {{^vendorExtensions.x-spring-cacheable}}
     import org.springframework.cache.annotation.Cacheable;
     {{/vendorExtensions.x-spring-cacheable}}
     ```
 2. Apply @Cacheable to the Method
 Configure caching parameters dynamically within the method declaration:
-    ```bash
+    ```mustache
     {{#vendorExtensions.x-spring-cacheable}}
     @Cacheable(
     cacheNames={{#name}}"{{.}}"{{/name}}{{^name}}"default"{{/name}},

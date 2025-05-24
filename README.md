@@ -1,4 +1,6 @@
+![img.png](images/img.png)
 # **Custom OpenAPI Code Generation for Spring Boot & Jakarta EE**
+![Custom OpenAPI Code Generation for Spring Boot & Jakarta EE](images/OpenAPI.png)
 
 This project provides a streamlined approach to customizing **OpenAPI Generator** templates, allowing developers to optimize generated models with **mandatory annotations and imports**. Ideal for **Spring Boot 3, Jakarta EE**, and frameworks requiring **JSON serialization** and **Lombok automation**.
 
@@ -264,4 +266,7 @@ Comment out the additionalModelTypeAnnotations tag in pom.xml
 ---
 #### **Final Thoughts**
 Customizing OpenAPI Generator templates is a smart approach to ensuring consistency, improving code maintainability, and seamlessly integrating with frameworks like Spring Boot 3 and Jakarta EE.
+
+---
+#### More on [Custome Annotation](CUSTOME-ANNOTATION.md)
 

@@ -3,6 +3,8 @@ fetch-employee-info:
   get:
     summary: Get Employee Information
     operationId: fetchEmployeeInfo
+    x-spring-cacheable:
+      name: fetchEmployeeInfoCache
     tags:
       - employee-info-controller
     parameters:
